@@ -59,7 +59,11 @@ defmodule Core do
     pending_puts: %{},
     # key => client
     client_map: %{},
-    sent_nodes: %{}
+    sent_nodes: %{},
+    # Anti-entropy timer reference
+    anti_entropy_timer: nil,
+    # Gossip timer reference
+    gossip_timer: nil
   )
 
   @doc """
@@ -201,33 +205,20 @@ defmodule Core do
   # Starts the server process for this node
   @spec make_server(%Core{}) :: no_return()
   def make_server(state) do
-    _anti_entropy_timer = Emulation.timer(25, :anti_entropy)
-    _gossip_timer = Emulation.timer(50, :gossip)
+    anti_entropy_timer = Emulation.timer(5_000, :anti_entropy)
+    gossip_timer = Emulation.timer(1_000, :gossip)
 
     now = Emulation.now()
 
     state = %{
       state
       | status_of_nodes: Map.put(state.status_of_nodes, whoami(), {"Healthy", now}),
-        node: whoami()
+        node: whoami(),
+        anti_entropy_timer: anti_entropy_timer,
+        gossip_timer: gossip_timer
     }
 
     server(state)
-  end
-
-  # Schedules periodic gossip
-  defp schedule_gossip do
-    Process.send_after(self(), :gossip, 1_000)
-  end
-
-  # Schedules periodic retry of failed nodes
-  defp schedule_retry_failed do
-    Process.send_after(self(), :retry_failed, 5_000)
-  end
-
-  # Schedules periodic anti-entropy (Merkle tree exchange)
-  defp schedule_anti_entropy do
-    Process.send_after(self(), :anti_entropy, 10_000)
   end
 
   # Main server loop: handles all messages (client and server)
@@ -558,18 +549,18 @@ defmodule Core do
         end
 
       # --- Gossip Protocol: Membership and Ring Exchange ---
-      %Messages.Gossip{from: from, membership: remote_membership, ring: remote_ring} ->
+      {sender,
+       %Messages.Gossip{from: from, membership: remote_membership, ring: remote_ring} = msg} ->
+        IO.puts("[#{state.node}] [GOSSIP] Received Gossip message: #{inspect(msg)}")
+
         handle_gossip(
           %Messages.Gossip{from: from, membership: remote_membership, ring: remote_ring},
           state
         )
 
-      # --- Anti-Entropy: Merkle Tree Exchange ---
-      %Messages.MerkleTreeExchange{from: from, tree: remote_tree} ->
-        handle_merkle_exchange(%Messages.MerkleTreeExchange{from: from, tree: remote_tree}, state)
-
       # --- Periodic Tasks ---
       :gossip ->
+        IO.puts("[#{state.node}] [GOSSIP] Received :gossip message (periodic trigger).")
         handle_info(:gossip, state)
 
       :anti_entropy ->
@@ -581,44 +572,54 @@ defmodule Core do
           send(node, {:ping, state.node})
         end)
 
-        schedule_retry_failed()
         server(state)
 
       # Handle ping/pong for failure detection
-      {:ping, from} ->
+      {sender, {:ping, from}} ->
         send(from, {:pong, state.node})
         server(state)
 
-      {:pong, node} ->
-        state = %{state | failed_nodes: Map.delete(state.failed_nodes, node)}
-        {hints, new_hints} = Map.pop(state.hintedHandedOffMap, node, [])
-        Enum.each(hints, fn req -> send(node, req) end)
+      {sender, {:pong, from}} ->
+        state = %{state | failed_nodes: Map.delete(state.failed_nodes, from)}
+        {hints, new_hints} = Map.pop(state.hintedHandedOffMap, from, [])
+        Enum.each(hints, fn req -> send(from, req) end)
         state = %{state | hintedHandedOffMap: new_hints}
         server(state)
 
       # Timeout handler for marking nodes as failed
-      {:request_timeout, node, key} ->
+      {sender, {:request_timeout, node, key}} ->
         now = :os.system_time(:millisecond)
         state = %{state | failed_nodes: Map.put(state.failed_nodes, node, now)}
         server(state)
     end
   end
 
-  # Handles periodic gossip: sends membership and ring info to a random peer
+  # Handles periodic tasks
   def handle_info(:gossip, state) do
+    IO.puts(
+      "[#{state.node}] [GOSSIP] handle_info(:gossip) called. Peers: #{inspect(Enum.filter(state.nodes, fn n -> n != state.node end))}"
+    )
+
     peers = Enum.filter(state.nodes, fn n -> n != state.node end)
 
     if peers != [] do
       peer = Enum.random(peers)
+      IO.puts("[#{state.node}] [GOSSIP] Sending Gossip message to peer: #{inspect(peer)}")
 
       send(peer, %Messages.Gossip{
         from: state.node,
         membership: state.membership_history,
         ring: state.ring
       })
+    else
+      IO.puts("[#{state.node}] [GOSSIP] No peers available for gossip.")
     end
 
-    schedule_gossip()
+    state = %{
+      state
+      | gossip_timer: Emulation.timer(1_000, :gossip)
+    }
+
     server(state)
   end
 
@@ -632,7 +633,11 @@ defmodule Core do
       send(peer, %Messages.MerkleTreeExchange{from: state.node, tree: tree})
     end
 
-    schedule_anti_entropy()
+    state = %{
+      state
+      | anti_entropy_timer: Emulation.timer(5_000, :anti_entropy)
+    }
+
     server(state)
   end
 
@@ -641,6 +646,16 @@ defmodule Core do
         %Messages.Gossip{from: from, membership: remote_membership, ring: remote_ring},
         state
       ) do
+    IO.puts(
+      "[#{state.node}] [GOSSIP] Received Gossip from #{inspect(from)}. Remote membership: #{inspect(remote_membership)}, Remote ring: #{inspect(remote_ring)}"
+    )
+
+    IO.puts(
+      "[#{state.node}] [GOSSIP] Local membership before merge: #{inspect(state.membership_history)}"
+    )
+
+    IO.puts("[#{state.node}] [GOSSIP] Local ring before merge: #{inspect(state.ring)}")
+
     # Merge membership histories (keep latest timestamp for each node)
     merged_membership =
       Map.merge(state.membership_history, remote_membership, fn _node,
@@ -649,10 +664,14 @@ defmodule Core do
         if ts1 >= ts2, do: {status1, ts1}, else: {status2, ts2}
       end)
 
+    IO.puts("[#{state.node}] [GOSSIP] Merged membership: #{inspect(merged_membership)}")
+
     # For ring, you may want to reconcile based on membership or just union for now
     merged_ring = Enum.uniq(state.ring ++ remote_ring)
+    IO.puts("[#{state.node}] [GOSSIP] Merged ring: #{inspect(merged_ring)}")
 
     new_state = %{state | membership_history: merged_membership, ring: merged_ring}
+    IO.puts("[#{state.node}] [GOSSIP] Updated state after gossip merge.")
     server(new_state)
   end
 
