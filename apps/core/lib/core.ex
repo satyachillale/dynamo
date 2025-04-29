@@ -1,6 +1,8 @@
 defmodule Core do
-  # Only import whoami/0 to avoid send/2 ambiguity
-  import Emulation, only: [whoami: 0]
+  import Emulation, only: [send: 2, whoami: 0]
+
+  import Kernel,
+    except: [spawn: 3, spawn: 1, spawn_link: 1, spawn_link: 3, send: 2]
 
   @enforce_keys [
     :nodes,
@@ -54,7 +56,10 @@ defmodule Core do
     # node => {status, timestamp}
     membership_history: %{},
     # key => value
-    pending_puts: %{}
+    pending_puts: %{},
+    # key => client
+    client_map: %{},
+    sent_nodes: %{}
   )
 
   @doc """
@@ -101,7 +106,8 @@ defmodule Core do
       inFailedState: false,
       failed_nodes: %{},
       membership_history: Enum.into(nodes, %{}, fn n -> {n, {"Healthy", 0}} end),
-      pending_puts: %{}
+      pending_puts: %{},
+      client_map: %{}
     }
   end
 
@@ -123,37 +129,73 @@ defmodule Core do
   def preference_list(key, ring, n) do
     key_hash = hash_node(key)
     ring_size = length(ring)
+    IO.puts("[preference_list] key=#{inspect(key)}, key_hash=#{inspect(key_hash)}, n=#{n}")
 
-    # Find the first vnode >= key_hash
-    {start_idx, _} =
+    # Find the index of the first vnode >= key_hash
+    start_idx =
       Enum.with_index(ring)
-      |> Enum.find(fn {{hash, _node}, _idx} -> hash >= key_hash end) ||
-        {List.first(ring), 0}
+      |> Enum.find(fn {{hash, _node}, _idx} -> hash >= key_hash end)
+      |> case do
+        nil ->
+          IO.puts("[preference_list] No vnode >= key_hash, wrapping to index 0")
+          0
 
-    # Walk the ring, skipping duplicate physical nodes
-    Stream.cycle(0..(ring_size - 1))
-    |> Stream.drop(start_idx)
-    |> Stream.map(fn idx -> elem(Enum.at(ring, rem(idx, ring_size)), 1) end)
-    |> Enum.uniq()
-    |> Enum.take(n)
+        {_, idx} ->
+          IO.puts("[preference_list] Found start_idx=#{idx}")
+          idx
+      end
+
+    # Walk the ring once, collecting unique nodes
+    result =
+      0..(ring_size - 1)
+      |> Enum.map(fn i ->
+        idx = rem(start_idx + i, ring_size)
+        node = elem(Enum.at(ring, idx), 1)
+        IO.puts("[preference_list] Considering node=#{inspect(node)} at idx=#{idx}")
+        node
+      end)
+      |> Enum.uniq()
+      |> Enum.take(n)
+
+    IO.puts("[preference_list] Selected nodes: #{inspect(result)}")
+    result
   end
 
   # Returns the first N healthy nodes for sloppy quorum (skips failed nodes)
   def sloppy_quorum_nodes(key, ring, n, failed_nodes) do
     key_hash = hash_node(key)
     ring_size = length(ring)
+    IO.puts("[sloppy_quorum_nodes] key=#{inspect(key)}, key_hash=#{inspect(key_hash)}, n=#{n}")
 
-    {start_idx, _} =
+    IO.puts(
+      "[sloppy_quorum_nodes] ring_size=#{ring_size}, failed_nodes=#{inspect(Map.keys(failed_nodes))}"
+    )
+
+    {_, start_idx} =
       Enum.with_index(ring)
       |> Enum.find(fn {{hash, _node}, _idx} -> hash >= key_hash end) ||
         {List.first(ring), 0}
 
-    Stream.cycle(0..(ring_size - 1))
-    |> Stream.drop(start_idx)
-    |> Stream.map(fn idx -> elem(Enum.at(ring, rem(idx, ring_size)), 1) end)
-    |> Stream.uniq()
-    |> Stream.reject(&Map.has_key?(failed_nodes, &1))
-    |> Enum.take(n)
+    IO.puts("[sloppy_quorum_nodes] start_idx=#{inspect(start_idx)}")
+
+    result =
+      Stream.cycle(0..(ring_size - 1))
+      |> Stream.drop(start_idx)
+      |> Stream.map(fn idx ->
+        node = elem(Enum.at(ring, rem(idx, ring_size)), 1)
+        IO.puts("[sloppy_quorum_nodes] Considering node=#{inspect(node)} at idx=#{idx}")
+        node
+      end)
+      |> Stream.uniq()
+      |> Stream.reject(fn node ->
+        failed = Map.has_key?(failed_nodes, node)
+        if failed, do: IO.puts("[sloppy_quorum_nodes] Skipping failed node=#{inspect(node)}")
+        failed
+      end)
+      |> Enum.take(n)
+
+    IO.puts("[sloppy_quorum_nodes] Selected nodes: #{inspect(result)}")
+    result
   end
 
   # Starts the server process for this node
@@ -194,9 +236,15 @@ defmodule Core do
       # --- Client to Server: Put ---
       {_sender,
        %Messages.ClientPutRequest{key: key, value: value, client: client, context: context}} ->
+        IO.puts(
+          "[#{state.node}] [PUT] Received ClientPutRequest for key=#{inspect(key)}, value=#{inspect(value)}, client=#{inspect(client)}, context=#{inspect(context)}"
+        )
+
         # Use sloppy quorum to select N healthy nodes for replication
         pref_nodes =
           sloppy_quorum_nodes(key, state.ring, state.replication_factor, state.failed_nodes)
+
+        IO.puts("[#{state.node}] [PUT] Sloppy quorum nodes selected: #{inspect(pref_nodes)}")
 
         req = %Messages.ReplicaPutRequest{
           key: key,
@@ -209,7 +257,10 @@ defmodule Core do
         sent_nodes =
           Enum.reduce(pref_nodes, [], fn node, acc ->
             if Map.has_key?(state.failed_nodes, node) do
-              # Store hint for failed node (hinted handoff)
+              IO.puts(
+                "[#{state.node}] [PUT] Node #{inspect(node)} is failed, storing hint for hinted handoff"
+              )
+
               hints = Map.get(state.hintedHandedOffMap, node, [])
 
               state = %{
@@ -219,7 +270,8 @@ defmodule Core do
 
               acc
             else
-              Emulation.send(node, req)
+              IO.puts("[#{state.node}] [PUT] Sending ReplicaPutRequest to node #{inspect(node)}")
+              send(node, req)
               Process.send_after(self(), {:request_timeout, node, key}, 500)
               [node | acc]
             end
@@ -227,34 +279,64 @@ defmodule Core do
 
         # Track client and value for this key
         state =
-          state
-          |> put_in([:client_map, key], client)
-          |> put_in([:response_count, key], 0)
-          |> put_in([:responses, key], [])
-          |> put_in([:pending_puts, key], value)
-          |> put_in([:sent_nodes, key], sent_nodes)
+          %{
+            state
+            | client_map: Map.put(state.client_map, {key, :put}, client),
+              response_count: Map.put(state.response_count, {key, :put}, 0),
+              responses: Map.put(state.responses, {key, :put}, []),
+              pending_puts: Map.put(state.pending_puts, key, value),
+              sent_nodes: Map.put(state.sent_nodes || %{}, key, sent_nodes)
+          }
+
+        IO.puts(
+          "[#{state.node}] [PUT] State updated for key=#{inspect(key)}; waiting for replica responses."
+        )
 
         server(state)
 
       # --- Client to Server: Get ---
       {sender, %Messages.ClientGetRequest{key: key, client: client}} ->
+        IO.puts(
+          "[#{state.node}] [GET] Received ClientGetRequest for key=#{inspect(key)}, client=#{inspect(client)}"
+        )
+
         # Coordinator receives client get, sends ReplicaGetRequest to N replicas
         pref_nodes = preference_list(key, state.ring, state.replication_factor)
+
+        IO.puts(
+          "[#{state.node}] [GET] Preference list for key=#{inspect(key)}: #{inspect(pref_nodes)}"
+        )
+
         req = %Messages.ReplicaGetRequest{key: key, from: state.node}
 
         Enum.each(pref_nodes, fn node ->
-          Emulation.send(node, req)
+          IO.puts("[#{state.node}] [GET] Sending ReplicaGetRequest to node #{inspect(node)}")
+          send(node, req)
           ref = Process.send_after(self(), {:request_timeout, node, key}, 500)
         end)
 
         # Track client for response
-        state = put_in(state.client_map[key], client)
-        state = put_in(state.response_count[key], 0)
-        state = put_in(state.responses[key], [])
+        state = %{
+          state
+          | client_map: Map.put(state.client_map, {key, :get}, client),
+            response_count: Map.put(state.response_count, {key, :get}, 0),
+            responses: Map.put(state.responses, {key, :get}, [])
+        }
+
+        IO.puts(
+          "[#{state.node}] [GET] State updated for key=#{inspect(key)}; waiting for replica responses."
+        )
+
+        IO.puts("[DEBUG] client_map after GET request: #{inspect(state.client_map)}")
+
         server(state)
 
       # --- Server to Server: Replica Put ---
       {sender, %Messages.ReplicaPutRequest{key: key, value: value, from: from, vector_clock: vc}} ->
+        IO.puts(
+          "[#{state.node}] [REPLICA PUT] Received ReplicaPutRequest for key=#{inspect(key)}, value=#{inspect(value)}, from=#{inspect(from)}, vector_clock=#{inspect(vc)}"
+        )
+
         # Replica applies write and responds with updated vector clock
         versions = Map.get(state.kv_store, key, [])
         new_vc = VectorClock.increment(VectorClock.merge(vc, latest_vc(versions)), state.node)
@@ -271,7 +353,11 @@ defmodule Core do
 
         new_store = Map.put(state.kv_store, key, updated_versions)
 
-        Emulation.send(from, %Messages.ReplicaPutResponse{
+        IO.puts(
+          "[#{state.node}] [REPLICA PUT] Updated kv_store for key=#{inspect(key)}. Sending ReplicaPutResponse to #{inspect(from)} with vector_clock=#{inspect(new_vc)}"
+        )
+
+        send(from, %Messages.ReplicaPutResponse{
           key: key,
           status: :ok,
           to: from,
@@ -282,12 +368,20 @@ defmodule Core do
 
       # --- Server to Server: Replica Get ---
       {sender, %Messages.ReplicaGetRequest{key: key, from: from}} ->
+        IO.puts(
+          "[#{state.node}] [REPLICA GET] Received ReplicaGetRequest for key=#{inspect(key)} from #{inspect(from)}"
+        )
+
         # Replica responds with all versions for the key
         versions = Map.get(state.kv_store, key, [])
         values = Enum.map(versions, & &1.value)
         vcs = Enum.map(versions, & &1.vector_clock)
 
-        Emulation.send(from, %Messages.ReplicaGetResponse{
+        IO.puts(
+          "[#{state.node}] [REPLICA GET] Sending ReplicaGetResponse to #{inspect(from)} with values=#{inspect(values)} and vector_clocks=#{inspect(vcs)}"
+        )
+
+        send(from, %Messages.ReplicaGetResponse{
           key: key,
           values: values,
           vector_clocks: vcs,
@@ -299,24 +393,38 @@ defmodule Core do
 
       # --- Replica Responses to Coordinator: Put ---
       {_sender, %Messages.ReplicaPutResponse{key: key, to: _to, vector_clock: vc}} ->
-        # Collect responses, and reply to client after write quorum is reached
-        count = Map.get(state.response_count, key, 0) + 1
-        value = Map.get(state.pending_puts, key)
-        responses = Map.get(state.responses, key, []) ++ [%{vector_clock: vc, value: value}]
+        IO.puts(
+          "[#{state.node}] [PUT] Received ReplicaPutResponse for key=#{inspect(key)}, vector_clock=#{inspect(vc)}"
+        )
 
-        state =
+        # Collect responses, and reply to client after write quorum is reached
+        count = Map.get(state.response_count, {key, :put}, 0) + 1
+        value = Map.get(state.pending_puts, key)
+
+        responses =
+          Map.get(state.responses, {key, :put}, []) ++ [%{vector_clock: vc, value: value}]
+
+        IO.puts(
+          "[#{state.node}] [PUT] Write responses for key=#{inspect(key)}: count=#{count}/#{state.write_quorum}"
+        )
+
+        state = %{
           state
-          |> put_in([:response_count, key], count)
-          |> put_in([:responses, key], responses)
+          | response_count: Map.put(state.response_count, {key, :put}, count),
+            responses: Map.put(state.responses, {key, :put}, responses)
+        }
 
         if count >= state.write_quorum do
-          client = Map.get(state.client_map, key)
+          client = Map.get(state.client_map, {key, :put})
 
           if client do
-            Emulation.send(client, %Messages.ClientPutResponse{
+            IO.puts(
+              "[#{state.node}] [PUT] Write quorum achieved for key=#{inspect(key)}. Sending ClientPutResponse to client #{inspect(client)}"
+            )
+
+            send(client, %Messages.ClientPutResponse{
               key: key,
               status: :ok,
-              to: client,
               vector_clock: vc
             })
           end
@@ -324,25 +432,39 @@ defmodule Core do
           # Write repair: send the latest version to all preference nodes
           pref_nodes = preference_list(key, state.ring, state.replication_factor)
 
+          IO.puts(
+            "[#{state.node}] [PUT] Performing write repair for key=#{inspect(key)} to nodes: #{inspect(pref_nodes)}"
+          )
+
           Enum.each(pref_nodes, fn node ->
             Enum.each(responses, fn %{vector_clock: vclock, value: val} ->
-              Emulation.send(node, %Messages.ReplicaPutRequest{
-                key: key,
-                value: val,
-                from: state.node,
-                vector_clock: vclock
-              })
+              if val != nil do
+                IO.puts(
+                  "[#{state.node}] [PUT] Write repair: sending ReplicaPutRequest to #{inspect(node)} with value=#{inspect(val)}, vector_clock=#{inspect(vclock)}"
+                )
+
+                send(node, %Messages.ReplicaPutRequest{
+                  key: key,
+                  value: val,
+                  from: state.node,
+                  vector_clock: vclock
+                })
+              end
             end)
           end)
 
           # Clean up state for this key
-          state =
+          state = %{
             state
-            |> update_in([:response_count], &Map.delete(&1, key))
-            |> update_in([:responses], &Map.delete(&1, key))
-            |> update_in([:client_map], &Map.delete(&1, key))
-            |> update_in([:pending_puts], &Map.delete(&1, key))
-            |> update_in([:sent_nodes], &Map.delete(&1, key))
+            | response_count: Map.delete(state.response_count, {key, :put}),
+              responses: Map.delete(state.responses, {key, :put}),
+              client_map: Map.delete(state.client_map, {key, :put}),
+              pending_puts: Map.delete(state.pending_puts, key)
+          }
+
+          IO.puts(
+            "[#{state.node}] [PUT] State cleaned up for key=#{inspect(key)} after write quorum."
+          )
 
           server(state)
         else
@@ -352,33 +474,48 @@ defmodule Core do
       # --- Replica Responses to Coordinator: Get ---
       {sender,
        %Messages.ReplicaGetResponse{key: key, values: values, vector_clocks: vcs, node: node}} ->
+        IO.puts(
+          "[#{state.node}] [GET] Received ReplicaGetResponse for key=#{inspect(key)} from node=#{inspect(node)} with values=#{inspect(values)} and vector_clocks=#{inspect(vcs)}"
+        )
+
         # Collect responses, and reply to client after read quorum is reached
-        count = Map.get(state.response_count, key, 0) + 1
+        count = Map.get(state.response_count, {key, :get}, 0) + 1
 
         responses =
-          Map.get(state.responses, key, []) ++ [%{values: values, vector_clocks: vcs, node: node}]
+          Map.get(state.responses, {key, :get}, []) ++
+            [%{values: values, vector_clocks: vcs, node: node}]
+
+        IO.puts(
+          "[#{state.node}] [GET] Read responses for key=#{inspect(key)}: count=#{count}/#{state.read_quorum}"
+        )
 
         state = %{
           state
-          | response_count: Map.put(state.response_count, key, count),
-            responses: Map.put(state.responses, key, responses)
+          | response_count: Map.put(state.response_count, {key, :get}, count),
+            responses: Map.put(state.responses, {key, :get}, responses)
         }
 
         if count >= state.read_quorum do
-          client = Map.get(state.client_map, key)
+          client = Map.get(state.client_map, {key, :get})
           merged = merge_versions(responses)
+
+          IO.puts(
+            "[#{state.node}] [GET] Read quorum achieved for key=#{inspect(key)}. Sending ClientGetResponse to client #{inspect(client)} with merged values=#{inspect(Enum.map(merged, & &1.value))}"
+          )
 
           if client,
             do:
-              Emulation.send(client, %Messages.ClientGetResponse{
+              send(client, %Messages.ClientGetResponse{
                 key: key,
-                values: Enum.map(merged, & &1.value),
-                vector_clocks: Enum.map(merged, & &1.vector_clock),
-                to: client
+                values: merged
               })
 
           # --- Read Repair ---
           pref_nodes = preference_list(key, state.ring, state.replication_factor)
+
+          IO.puts(
+            "[#{state.node}] [GET] Performing read repair for key=#{inspect(key)} to nodes: #{inspect(pref_nodes)}"
+          )
 
           Enum.each(pref_nodes, fn node ->
             node_resp = Enum.find(responses, fn r -> r.node == node end)
@@ -388,7 +525,11 @@ defmodule Core do
               merged -- Enum.map(node_vcs, fn vc -> %{value: nil, vector_clock: vc} end)
 
             Enum.each(missing, fn %{value: value, vector_clock: vc} ->
-              Emulation.send(node, %Messages.ReplicaPutRequest{
+              IO.puts(
+                "[#{state.node}] [GET] Read repair: sending ReplicaPutRequest to #{inspect(node)} with value=#{inspect(value)}, vector_clock=#{inspect(vc)}"
+              )
+
+              send(node, %Messages.ReplicaPutRequest{
                 key: key,
                 value: value,
                 from: state.node,
@@ -401,11 +542,15 @@ defmodule Core do
 
           state = %{
             state
-            | response_count: Map.delete(state.response_count, key),
-              responses: Map.delete(state.responses, key),
-              client_map: Map.delete(state.client_map, key),
+            | response_count: Map.delete(state.response_count, {key, :get}),
+              responses: Map.delete(state.responses, {key, :get}),
+              client_map: Map.delete(state.client_map, {key, :get}),
               pending_puts: Map.delete(state.pending_puts, key)
           }
+
+          IO.puts(
+            "[#{state.node}] [GET] State cleaned up for key=#{inspect(key)} after read quorum."
+          )
 
           server(state)
         else
@@ -433,7 +578,7 @@ defmodule Core do
       # Periodically retry failed nodes
       :retry_failed ->
         Enum.each(Map.keys(state.failed_nodes), fn node ->
-          Emulation.send(node, {:ping, state.node})
+          send(node, {:ping, state.node})
         end)
 
         schedule_retry_failed()
@@ -441,13 +586,13 @@ defmodule Core do
 
       # Handle ping/pong for failure detection
       {:ping, from} ->
-        Emulation.send(from, {:pong, state.node})
+        send(from, {:pong, state.node})
         server(state)
 
       {:pong, node} ->
         state = %{state | failed_nodes: Map.delete(state.failed_nodes, node)}
         {hints, new_hints} = Map.pop(state.hintedHandedOffMap, node, [])
-        Enum.each(hints, fn req -> Emulation.send(node, req) end)
+        Enum.each(hints, fn req -> send(node, req) end)
         state = %{state | hintedHandedOffMap: new_hints}
         server(state)
 
@@ -466,7 +611,7 @@ defmodule Core do
     if peers != [] do
       peer = Enum.random(peers)
 
-      Emulation.send(peer, %Messages.Gossip{
+      send(peer, %Messages.Gossip{
         from: state.node,
         membership: state.membership_history,
         ring: state.ring
@@ -484,7 +629,7 @@ defmodule Core do
     if peers != [] do
       peer = Enum.random(peers)
       tree = MerkleTree.build(state.kv_store)
-      Emulation.send(peer, %Messages.MerkleTreeExchange{from: state.node, tree: tree})
+      send(peer, %Messages.MerkleTreeExchange{from: state.node, tree: tree})
     end
 
     schedule_anti_entropy()
@@ -519,7 +664,7 @@ defmodule Core do
       IO.puts("[#{state.node}] Merkle root mismatch with #{from}, triggering sync")
       # In a real system, you'd walk the tree to find differing subtrees/keys.
       # For simplicity, you could send your full kv_store or request theirs.
-      # Example: Emulation.send(from, {:request_full_sync, state.node})
+      # Example: send(from, {:request_full_sync, state.node})
     end
 
     server(state)
@@ -538,10 +683,18 @@ defmodule Core do
     # Flatten all versions from all responses
     versions =
       responses
-      |> Enum.flat_map(fn %{values: values, vector_clocks: vcs} ->
-        Enum.zip(values, vcs)
-        |> Enum.map(fn {value, vc} -> %{value: value, vector_clock: vc} end)
+      |> Enum.flat_map(fn
+        %{values: values, vector_clocks: vcs} when is_list(values) and is_list(vcs) ->
+          Enum.zip(values, vcs)
+          |> Enum.map(fn {value, vc} -> %{value: value, vector_clock: vc} end)
+
+        %{value: value, vector_clock: vc} ->
+          [%{value: value, vector_clock: vc}]
+
+        _ ->
+          []
       end)
+      |> Enum.reject(fn v -> v.value == nil end)
 
     # Remove obsolete versions: keep only those not dominated by any other
     Enum.filter(versions, fn v1 ->
@@ -632,27 +785,35 @@ defmodule Dynamo.Client do
     %__MODULE__{coordinator: node}
   end
 
+  @spec put(%__MODULE__{}, any(), any(), map()) :: {:ok, %__MODULE__{}} | {:error, :timeout}
   @doc """
   Send a put request to the Dynamo ring.
   """
-  @spec put(%__MODULE__{}, any(), any(), map()) :: {:ok, %__MODULE__{}}
   def put(client, key, value, context \\ %{}) do
+    IO.puts("[Client] Sending PUT request to coordinator: #{inspect(client.coordinator)}")
+
     send(
       client.coordinator,
-      {:client,
-       %Messages.ClientPutRequest{
-         key: key,
-         value: value,
-         client: self(),
-         context: context
-       }}
+      %Messages.ClientPutRequest{
+        key: key,
+        value: value,
+        client: self(),
+        context: context
+      }
     )
 
     receive do
-      %Messages.ClientPutResponse{key: ^key, status: :ok} ->
+      {:msg, _from, %Messages.ClientPutResponse{key: ^key, status: :ok, vector_clock: vc} = msg} ->
+        IO.puts("[Client] Received ClientPutResponse: #{inspect(msg)}")
         {:ok, client}
+
+        # other ->
+        #   IO.puts("[Client] Received unexpected PUT message: #{inspect(other)}")
+        #   {:error, client}
     after
-      5_000 -> {:error, :timeout}
+      5_000 ->
+        IO.puts("[Client] PUT request timed out for key=#{inspect(key)}")
+        {:timeout, client}
     end
   end
 
@@ -661,20 +822,28 @@ defmodule Dynamo.Client do
   """
   @spec get(%__MODULE__{}, any()) :: {:ok, [any()], %__MODULE__{}} | {:error, :timeout}
   def get(client, key) do
+    IO.puts("[Client] Sending GET request to coordinator: #{inspect(client.coordinator)}")
+
     send(
       client.coordinator,
-      {:client,
-       %Messages.ClientGetRequest{
-         key: key,
-         client: self()
-       }}
+      %Messages.ClientGetRequest{
+        key: key,
+        client: self()
+      }
     )
 
     receive do
-      %Messages.ClientGetResponse{key: ^key, values: values} ->
-        {:ok, values, client}
+      {:msg, _from, %Messages.ClientGetResponse{key: ^key, values: values} = msg} ->
+        IO.puts("[Client] Received ClientGetResponse: #{inspect(msg)}")
+        {:ok, values}
+
+      other ->
+        IO.puts("[Client] Received unexpected GET message: #{inspect(other)}")
+        {:error, client}
     after
-      5_000 -> {:error, :timeout}
+      15_000 ->
+        IO.puts("[Client] GET request timed out for key=#{inspect(key)}")
+        {:error, :timeout}
     end
   end
 end
