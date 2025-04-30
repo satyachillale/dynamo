@@ -48,7 +48,8 @@ defmodule Messages do
 
   # Server to Server (Replica)
   defmodule ReplicaPutRequest do
-    defstruct [:key, :value, :from, :vector_clock]
+    @enforce_keys [:key, :value, :from, :vector_clock]
+    defstruct [:key, :value, :from, :vector_clock, repair: false]
   end
 
   defmodule ReplicaGetRequest do

@@ -133,7 +133,7 @@ defmodule Core do
   def preference_list(key, ring, n) do
     key_hash = hash_node(key)
     ring_size = length(ring)
-    IO.puts("[preference_list] key=#{inspect(key)}, key_hash=#{inspect(key_hash)}, n=#{n}")
+    # IO.puts("[preference_list] key=#{inspect(key)}, key_hash=#{inspect(key_hash)}, n=#{n}")
 
     # Find the index of the first vnode >= key_hash
     start_idx =
@@ -141,11 +141,11 @@ defmodule Core do
       |> Enum.find(fn {{hash, _node}, _idx} -> hash >= key_hash end)
       |> case do
         nil ->
-          IO.puts("[preference_list] No vnode >= key_hash, wrapping to index 0")
+          # IO.puts("[preference_list] No vnode >= key_hash, wrapping to index 0")
           0
 
         {_, idx} ->
-          IO.puts("[preference_list] Found start_idx=#{idx}")
+          # IO.puts("[preference_list] Found start_idx=#{idx}")
           idx
       end
 
@@ -155,7 +155,7 @@ defmodule Core do
       |> Enum.map(fn i ->
         idx = rem(start_idx + i, ring_size)
         node = elem(Enum.at(ring, idx), 1)
-        IO.puts("[preference_list] Considering node=#{inspect(node)} at idx=#{idx}")
+        # IO.puts("[preference_list] Considering node=#{inspect(node)} at idx=#{idx}")
         node
       end)
       |> Enum.uniq()
@@ -169,11 +169,11 @@ defmodule Core do
   def sloppy_quorum_nodes(key, ring, n, failed_nodes) do
     key_hash = hash_node(key)
     ring_size = length(ring)
-    IO.puts("[sloppy_quorum_nodes] key=#{inspect(key)}, key_hash=#{inspect(key_hash)}, n=#{n}")
+    # IO.puts("[sloppy_quorum_nodes] key=#{inspect(key)}, key_hash=#{inspect(key_hash)}, n=#{n}")
 
-    IO.puts(
-      "[sloppy_quorum_nodes] ring_size=#{ring_size}, failed_nodes=#{inspect(Map.keys(failed_nodes))}"
-    )
+    # IO.puts(
+    #   "[sloppy_quorum_nodes] ring_size=#{ring_size}, failed_nodes=#{inspect(Map.keys(failed_nodes))}"
+    # )
 
     {_, start_idx} =
       Enum.with_index(ring)
@@ -202,20 +202,119 @@ defmodule Core do
     result
   end
 
+  def vnode_key_ranges(node, ring) do
+    ring
+    |> Enum.with_index()
+    |> Enum.filter(fn {{_hash, n}, _i} -> n == node end)
+    |> Enum.map(fn {{hash, _}, i} ->
+      prev_idx = rem(i - 1 + length(ring), length(ring))
+      {prev_hash, _} = Enum.at(ring, prev_idx)
+      {prev_hash + 1, hash}
+    end)
+  end
+
+  def key_in_range?(key_hash, {start_hash, end_hash}) do
+    start_hash <= key_hash and key_hash <= end_hash
+  end
+
+  def build_merkle_trees_for_node(kv_store, node, ring) do
+    ranges = vnode_key_ranges(node, ring)
+
+    Enum.map(ranges, fn range ->
+      keys_in_range =
+        kv_store
+        |> Map.keys()
+        |> Enum.filter(fn k ->
+          key_hash = hash_node(k)
+          key_in_range?(key_hash, range)
+        end)
+
+      kvs = Map.take(kv_store, keys_in_range)
+      {range, MerkleTree.build(kvs)}
+    end)
+  end
+
+  def synchronize_merkle(sender, receiver, sender_kv_store, receiver_kv_store, range) do
+    sender_kvs = kvs_in_range(sender_kv_store, range)
+    receiver_kvs = kvs_in_range(receiver_kv_store, range)
+
+    sender_tree = MerkleTree.build(sender_kvs)
+    receiver_tree = MerkleTree.build(receiver_kvs)
+
+    if MerkleTree.equal?(sender_tree, receiver_tree) do
+      receiver_kv_store
+    else
+      # If not equal, compare leaves (keys) and update only differing keys
+      sender_keys = Map.keys(sender_kvs)
+      receiver_keys = Map.keys(receiver_kvs)
+      all_keys = Enum.uniq(sender_keys ++ receiver_keys)
+
+      Enum.reduce(all_keys, receiver_kv_store, fn key, acc ->
+        sender_val = Map.get(sender_kv_store, key)
+        receiver_val = Map.get(receiver_kv_store, key)
+
+        cond do
+          receiver_val == nil ->
+            Map.put(acc, key, sender_val)
+
+          sender_val == nil ->
+            acc
+
+          true ->
+            # Use vector clock to resolve
+            sender_vc = get_vector_clock(sender_val)
+            receiver_vc = get_vector_clock(receiver_val)
+
+            case VectorClock.compare(sender_vc, receiver_vc) do
+              :after ->
+                Map.put(acc, key, sender_val)
+
+              :before ->
+                acc
+
+              :equal ->
+                acc
+
+              :concurrent ->
+                # If concurrent, keep both versions (multi-version)
+                acc
+            end
+        end
+      end)
+    end
+  end
+
+  defp kvs_in_range(kv_store, {start_hash, end_hash}) do
+    kv_store
+    |> Enum.filter(fn {k, _v} ->
+      key_hash = hash_node(k)
+      start_hash <= key_hash and key_hash <= end_hash
+    end)
+    |> Enum.into(%{})
+  end
+
+  defp get_vector_clock(val) do
+    case val do
+      [%{vector_clock: vc} | _] -> vc
+      %{vector_clock: vc} -> vc
+      _ -> %{}
+    end
+  end
+
   # Starts the server process for this node
   @spec make_server(%Core{}) :: no_return()
   def make_server(state) do
-    anti_entropy_timer = Emulation.timer(5_000, :anti_entropy)
-    gossip_timer = Emulation.timer(1_000, :gossip)
+    # anti_entropy_timer = Emulation.timer(2_000, :anti_entropy)
+    # gossip_timer = Emulation.timer(1_000, :gossip)
 
     now = Emulation.now()
 
     state = %{
       state
       | status_of_nodes: Map.put(state.status_of_nodes, whoami(), {"Healthy", now}),
-        node: whoami(),
-        anti_entropy_timer: anti_entropy_timer,
-        gossip_timer: gossip_timer
+        node: whoami()
+        # anti_entropy_timer: anti_entropy_timer,
+        # gossip_timer: gossip_timer
     }
 
     server(state)
@@ -241,7 +340,8 @@ defmodule Core do
           key: key,
           value: value,
           from: state.node,
-          vector_clock: context
+          vector_clock: context,
+          repair: false
         }
 
         # Track which nodes we actually sent to (for write repair)
@@ -263,7 +363,6 @@ defmodule Core do
             else
               IO.puts("[#{state.node}] [PUT] Sending ReplicaPutRequest to node #{inspect(node)}")
               send(node, req)
-              Process.send_after(self(), {:request_timeout, node, key}, 500)
               [node | acc]
             end
           end)
@@ -323,9 +422,16 @@ defmodule Core do
         server(state)
 
       # --- Server to Server: Replica Put ---
-      {sender, %Messages.ReplicaPutRequest{key: key, value: value, from: from, vector_clock: vc}} ->
+      {sender,
+       %Messages.ReplicaPutRequest{
+         key: key,
+         value: value,
+         from: from,
+         vector_clock: vc,
+         repair: repair?
+       }} ->
         IO.puts(
-          "[#{state.node}] [REPLICA PUT] Received ReplicaPutRequest for key=#{inspect(key)}, value=#{inspect(value)}, from=#{inspect(from)}, vector_clock=#{inspect(vc)}"
+          "[#{state.node}] [REPLICA PUT] Received ReplicaPutRequest for key=#{inspect(key)}, value=#{inspect(value)}, from=#{inspect(from)}, vector_clock=#{inspect(vc)}, repair=#{inspect(repair?)}"
         )
 
         # Replica applies write and responds with updated vector clock
@@ -355,6 +461,7 @@ defmodule Core do
           vector_clock: new_vc
         })
 
+        # Only call server(state) (no write repair here)
         server(%{state | kv_store: new_store})
 
       # --- Server to Server: Replica Get ---
@@ -438,7 +545,8 @@ defmodule Core do
                   key: key,
                   value: val,
                   from: state.node,
-                  vector_clock: vclock
+                  vector_clock: vclock,
+                  repair: true
                 })
               end
             end)
@@ -566,6 +674,45 @@ defmodule Core do
       :anti_entropy ->
         handle_info(:anti_entropy, state)
 
+      :antientropy ->
+        if state.inFailedState do
+          server(state)
+        else
+          other_nodes = Enum.filter(state.nodes, fn n -> n != state.node end)
+
+          if other_nodes != [] do
+            select_node = Enum.random(other_nodes)
+
+            # Send kv_store and ring for Merkle-based anti-entropy
+            send(select_node, {:merkle_request, state.node, state.kv_store})
+          end
+
+          timer = Emulation.timer(5_000, :antientropy)
+          state = %{state | anti_entropy_timer: timer}
+          server(state)
+        end
+
+      {sender, {:merkle_request, sender_node, sender_kv_store}} ->
+        if state.inFailedState do
+          server(state)
+        else
+          # For each key range this node is responsible for, synchronize with sender
+          my_ranges = vnode_key_ranges(state.node, state.ring)
+
+          updated_kv_store =
+            Enum.reduce(my_ranges, state.kv_store, fn range, acc_kv_store ->
+              synchronize_merkle(
+                sender_node,
+                state.node,
+                sender_kv_store,
+                acc_kv_store,
+                range
+              )
+            end)
+
+          server(%{state | kv_store: updated_kv_store})
+        end
+
       # Periodically retry failed nodes
       :retry_failed ->
         Enum.each(Map.keys(state.failed_nodes), fn node ->
@@ -625,6 +772,10 @@ defmodule Core do
 
   # Handles periodic anti-entropy: sends Merkle tree root to a random peer
   def handle_info(:anti_entropy, state) do
+    IO.puts(
+      "[#{state.node}] [ANTI-ENTROPY] handle_info(:anti_entropy) called. Peers: #{inspect(Enum.filter(state.nodes, fn n -> n != state.node end))}"
+    )
+
     peers = Enum.filter(state.nodes, fn n -> n != state.node end)
 
     if peers != [] do
@@ -830,7 +981,7 @@ defmodule Dynamo.Client do
         #   IO.puts("[Client] Received unexpected PUT message: #{inspect(other)}")
         #   {:error, client}
     after
-      5_000 ->
+      15_000 ->
         IO.puts("[Client] PUT request timed out for key=#{inspect(key)}")
         {:timeout, client}
     end

@@ -5,6 +5,8 @@ defmodule BasicDynamoTest do
 
   test "basic put and get request" do
     Emulation.init()
+    Emulation.append_fuzzers([Fuzzers.drop(0.05), Fuzzers.delay(2.0)])
+
     nodes = [:a, :b, :c]
     vnodes = 3
     clients = [:client]
@@ -47,6 +49,7 @@ defmodule BasicDynamoTest do
 
   test "multiple keys and overwrites" do
     Emulation.init()
+    Emulation.append_fuzzers([Fuzzers.drop(0.05), Fuzzers.delay(2.0)])
     nodes = [:a, :b, :c]
     vnodes = 3
     clients = [:client]
@@ -105,6 +108,7 @@ defmodule BasicDynamoTest do
 
   test "concurrent clients and concurrent puts" do
     Emulation.init()
+    Emulation.append_fuzzers([Fuzzers.drop(0.05), Fuzzers.delay(2.0)])
     nodes = [:a, :b, :c]
     vnodes = 3
     clients = [:client1, :client2]

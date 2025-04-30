@@ -1,0 +1,1797 @@
+==> emulation
+==> core
+Running ExUnit with seed: 229164, max_cases: 24
+
+
+15:33:38.278 [debug] Initializing ComBase
+
+15:33:38.279 [debug] Registration map is #PID<0.212.0>
+
+15:33:38.279 [debug] Reverse Registration map is #PID<0.213.0>
+
+15:33:38.279 [debug] Fuzz chain is #PID<0.216.0>
+
+15:33:38.279 [debug] The set of unfuzzables is #PID<0.215.0>
+
+15:33:38.288 [debug] Spawned :n1 with main process: #PID<0.218.0> proxy: #PID<0.219.0>
+
+15:33:38.289 [debug] Spawned :n2 with main process: #PID<0.221.0> proxy: #PID<0.222.0>
+
+15:33:38.289 [debug] Spawned :n3 with main process: #PID<0.224.0> proxy: #PID<0.225.0>
+
+15:33:38.289 [debug] Spawned :n4 with main process: #PID<0.227.0> proxy: #PID<0.228.0>
+
+15:33:38.289 [debug] Spawned :putter_n1 with main process: #PID<0.230.0> proxy: #PID<0.231.0>
+
+15:33:38.289 [debug] Spawned :putter_n2 with main process: #PID<0.233.0> proxy: #PID<0.234.0>
+
+15:33:38.289 [debug] Spawned :putter_n3 with main process: #PID<0.236.0> proxy: #PID<0.237.0>
+
+15:33:38.289 [debug] Spawned :putter_n4 with main process: #PID<0.239.0> proxy: #PID<0.240.0>
+[Client] Sending PUT request to coordinator: :n3
+[Client] Sending PUT request to coordinator: :n4
+[Client] Sending PUT request to coordinator: :n2
+[Client] Sending PUT request to coordinator: :n1
+[n3] [PUT] Received ClientPutRequest for key="k", value="v3", client=#PID<0.236.0>, context=%{}
+[n4] [PUT] Received ClientPutRequest for key="k", value="v4", client=#PID<0.239.0>, context=%{}
+[n2] [PUT] Received ClientPutRequest for key="k", value="v2", client=#PID<0.233.0>, context=%{}
+[n1] [PUT] Received ClientPutRequest for key="k", value="v1", client=#PID<0.230.0>, context=%{}
+[sloppy_quorum_nodes] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[sloppy_quorum_nodes] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[sloppy_quorum_nodes] ring_size=40, failed_nodes=[]
+[sloppy_quorum_nodes] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[sloppy_quorum_nodes] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[sloppy_quorum_nodes] ring_size=40, failed_nodes=[]
+[sloppy_quorum_nodes] start_idx=16
+[sloppy_quorum_nodes] ring_size=40, failed_nodes=[]
+[sloppy_quorum_nodes] ring_size=40, failed_nodes=[]
+[sloppy_quorum_nodes] start_idx=16
+[sloppy_quorum_nodes] start_idx=16
+[sloppy_quorum_nodes] start_idx=16
+[sloppy_quorum_nodes] Considering node=:n1 at idx=16
+[sloppy_quorum_nodes] Considering node=:n1 at idx=16
+[sloppy_quorum_nodes] Considering node=:n1 at idx=16
+[sloppy_quorum_nodes] Considering node=:n1 at idx=16
+[sloppy_quorum_nodes] Considering node=:n3 at idx=17
+[sloppy_quorum_nodes] Considering node=:n3 at idx=17
+[sloppy_quorum_nodes] Considering node=:n3 at idx=17
+[sloppy_quorum_nodes] Considering node=:n3 at idx=17
+[sloppy_quorum_nodes] Considering node=:n4 at idx=18
+[sloppy_quorum_nodes] Considering node=:n4 at idx=18
+[sloppy_quorum_nodes] Considering node=:n4 at idx=18
+[sloppy_quorum_nodes] Considering node=:n4 at idx=18
+[sloppy_quorum_nodes] Considering node=:n1 at idx=19
+[sloppy_quorum_nodes] Considering node=:n1 at idx=19
+[sloppy_quorum_nodes] Considering node=:n1 at idx=19
+[sloppy_quorum_nodes] Considering node=:n1 at idx=19
+[sloppy_quorum_nodes] Considering node=:n3 at idx=20
+[sloppy_quorum_nodes] Considering node=:n3 at idx=20
+[sloppy_quorum_nodes] Considering node=:n3 at idx=20
+[sloppy_quorum_nodes] Considering node=:n3 at idx=20
+[sloppy_quorum_nodes] Considering node=:n1 at idx=21
+[sloppy_quorum_nodes] Considering node=:n1 at idx=21
+[sloppy_quorum_nodes] Considering node=:n1 at idx=21
+[sloppy_quorum_nodes] Considering node=:n1 at idx=21
+[sloppy_quorum_nodes] Considering node=:n2 at idx=22
+[sloppy_quorum_nodes] Considering node=:n2 at idx=22
+[sloppy_quorum_nodes] Considering node=:n2 at idx=22
+[sloppy_quorum_nodes] Considering node=:n2 at idx=22
+[sloppy_quorum_nodes] Selected nodes: [:n1, :n3, :n4, :n2]
+[sloppy_quorum_nodes] Selected nodes: [:n1, :n3, :n4, :n2]
+[sloppy_quorum_nodes] Selected nodes: [:n1, :n3, :n4, :n2]
+[sloppy_quorum_nodes] Selected nodes: [:n1, :n3, :n4, :n2]
+[n2] [PUT] Sloppy quorum nodes selected: [:n1, :n3, :n4, :n2]
+[n1] [PUT] Sloppy quorum nodes selected: [:n1, :n3, :n4, :n2]
+[n3] [PUT] Sloppy quorum nodes selected: [:n1, :n3, :n4, :n2]
+[n4] [PUT] Sloppy quorum nodes selected: [:n1, :n3, :n4, :n2]
+[n2] [PUT] Sending ReplicaPutRequest to node :n1
+[n1] [PUT] Sending ReplicaPutRequest to node :n1
+[n3] [PUT] Sending ReplicaPutRequest to node :n1
+[n4] [PUT] Sending ReplicaPutRequest to node :n1
+[n2] [PUT] Sending ReplicaPutRequest to node :n3
+[n1] [PUT] Sending ReplicaPutRequest to node :n3
+[n3] [PUT] Sending ReplicaPutRequest to node :n3
+[n4] [PUT] Sending ReplicaPutRequest to node :n3
+[n2] [PUT] Sending ReplicaPutRequest to node :n4
+[n1] [PUT] Sending ReplicaPutRequest to node :n4
+[n3] [PUT] Sending ReplicaPutRequest to node :n4
+[n4] [PUT] Sending ReplicaPutRequest to node :n4
+[n2] [PUT] Sending ReplicaPutRequest to node :n2
+[n1] [PUT] Sending ReplicaPutRequest to node :n2
+[n3] [PUT] Sending ReplicaPutRequest to node :n2
+[n4] [PUT] Sending ReplicaPutRequest to node :n2
+[n2] [PUT] State updated for key="k"; waiting for replica responses.
+[n3] [PUT] State updated for key="k"; waiting for replica responses.
+[n1] [PUT] State updated for key="k"; waiting for replica responses.
+[n4] [PUT] State updated for key="k"; waiting for replica responses.
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n3: 1}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n2: 1}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 1}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n4: 1}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n2: 2}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n3: 2}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 2}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n4: 2}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n2: 3}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n3: 3}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 3}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n4: 3}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n2: 4}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n3: 4}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 4}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 1}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n4: 4}
+[n2] [PUT] Write responses for key="k": count=1/4
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n3: 1}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 1}
+[n1] [PUT] Write responses for key="k": count=1/4
+[n2] [PUT] Write responses for key="k": count=2/4
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n4: 1}
+[n1] [PUT] Write responses for key="k": count=2/4
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 3}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n3: 3}
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 4}
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 2}
+[n1] [PUT] Write responses for key="k": count=3/4
+[n2] [PUT] Write responses for key="k": count=3/4
+[n4] [PUT] Write responses for key="k": count=1/4
+[n3] [PUT] Write responses for key="k": count=1/4
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 3}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n4: 3}
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2}
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n4: 2}
+[n1] [PUT] Write responses for key="k": count=4/4
+[n2] [PUT] Write responses for key="k": count=4/4
+[n4] [PUT] Write responses for key="k": count=2/4
+[n3] [PUT] Write responses for key="k": count=2/4
+[n1] [PUT] Write quorum achieved for key="k". Sending ClientPutResponse to client #PID<0.230.0>
+[n2] [PUT] Write quorum achieved for key="k". Sending ClientPutResponse to client #PID<0.233.0>
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n3: 4}
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n3: 2}
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[n4] [PUT] Write responses for key="k": count=3/4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[n3] [PUT] Write responses for key="k": count=3/4
+[preference_list] Found start_idx=16
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n4: 4}
+[preference_list] Found start_idx=16
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 4}
+[preference_list] Considering node=:n1 at idx=16
+[n4] [PUT] Write responses for key="k": count=4/4
+[preference_list] Considering node=:n1 at idx=16
+[n3] [PUT] Write responses for key="k": count=4/4
+[preference_list] Considering node=:n3 at idx=17
+[n4] [PUT] Write quorum achieved for key="k". Sending ClientPutResponse to client #PID<0.239.0>
+[preference_list] Considering node=:n3 at idx=17
+[n3] [PUT] Write quorum achieved for key="k". Sending ClientPutResponse to client #PID<0.236.0>
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n3 at idx=28
+[Client] Received ClientPutResponse: %Messages.ClientPutResponse{key: "k", status: :ok, vector_clock: %{n4: 4}}
+[Client] Received ClientPutResponse: %Messages.ClientPutResponse{key: "k", status: :ok, vector_clock: %{n1: 3}}
+[Client] Received ClientPutResponse: %Messages.ClientPutResponse{key: "k", status: :ok, vector_clock: %{n1: 4}}
+[preference_list] Considering node=:n4 at idx=29
+[Client] Received ClientPutResponse: %Messages.ClientPutResponse{key: "k", status: :ok, vector_clock: %{n4: 3}}
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n1] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=13
+[n2] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v1", vector_clock=%{n3: 1}
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n3 at idx=14
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v2", vector_clock=%{n2: 1}
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n4 at idx=15
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v1", vector_clock=%{n4: 1}
+[preference_list] Considering node=:n4 at idx=15
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v2", vector_clock=%{n1: 1}
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v1", vector_clock=%{n2: 3}
+[n4] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v2", vector_clock=%{n3: 3}
+[n3] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v1", vector_clock=%{n1: 3}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v4", vector_clock=%{n2: 4}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v2", vector_clock=%{n4: 3}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v3", vector_clock=%{n2: 2}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v1", vector_clock=%{n3: 1}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v4", vector_clock=%{n1: 2}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v2", vector_clock=%{n2: 1}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v3", vector_clock=%{n4: 2}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v4", vector_clock=%{n3: 4}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v1", vector_clock=%{n4: 1}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v2", vector_clock=%{n1: 1}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v4", vector_clock=%{n4: 4}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v3", vector_clock=%{n3: 2}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v2", vector_clock=%{n3: 3}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v4", vector_clock=%{n2: 4}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v1", vector_clock=%{n2: 3}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n1 with value="v3", vector_clock=%{n1: 4}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v2", vector_clock=%{n4: 3}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v4", vector_clock=%{n1: 2}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v3", vector_clock=%{n2: 2}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v1", vector_clock=%{n1: 3}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v2", vector_clock=%{n2: 1}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v4", vector_clock=%{n3: 4}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v3", vector_clock=%{n4: 2}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v1", vector_clock=%{n3: 1}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v2", vector_clock=%{n1: 1}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v4", vector_clock=%{n4: 4}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v3", vector_clock=%{n3: 2}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v1", vector_clock=%{n4: 1}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v2", vector_clock=%{n3: 3}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v4", vector_clock=%{n2: 4}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n3 with value="v3", vector_clock=%{n1: 4}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v2", vector_clock=%{n4: 3}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v4", vector_clock=%{n1: 2}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v1", vector_clock=%{n2: 3}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v3", vector_clock=%{n2: 2}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v2", vector_clock=%{n2: 1}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v1", vector_clock=%{n1: 3}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v4", vector_clock=%{n3: 4}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v3", vector_clock=%{n4: 2}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v2", vector_clock=%{n1: 1}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v1", vector_clock=%{n3: 1}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v4", vector_clock=%{n4: 4}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v2", vector_clock=%{n3: 3}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v3", vector_clock=%{n3: 2}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v1", vector_clock=%{n4: 1}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v4", vector_clock=%{n2: 4}
+[n2] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v2", vector_clock=%{n4: 3}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n4 with value="v3", vector_clock=%{n1: 4}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v1", vector_clock=%{n2: 3}
+[n2] [PUT] State cleaned up for key="k" after write quorum.
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v4", vector_clock=%{n1: 2}
+[n1] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v1", vector_clock=%{n1: 3}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v3", vector_clock=%{n2: 2}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v4", vector_clock=%{n3: 4}
+[n1] [PUT] State cleaned up for key="k" after write quorum.
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v3", vector_clock=%{n4: 2}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n3: 1}
+[n4] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v4", vector_clock=%{n4: 4}
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v3", vector_clock=%{n3: 2}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 5, n3: 1}
+[n4] [PUT] State cleaned up for key="k" after write quorum.
+[n3] [PUT] Write repair: sending ReplicaPutRequest to :n2 with value="v3", vector_clock=%{n1: 4}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n2: 1}
+[n3] [PUT] State cleaned up for key="k" after write quorum.
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 6, n2: 1, n3: 1}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n3: 1}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n3: 5}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n2: 2}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 7, n2: 2, n3: 1}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n2: 4}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n2: 2}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n2: 1}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n2: 4}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n2: 4, n4: 5}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n2: 5}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n2: 1, n3: 6}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 8, n2: 4, n3: 1}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n3: 1}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n3: 1}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n2: 4}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n2: 4, n3: 1, n4: 6}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n1: 2}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n2: 6, n3: 1}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n2: 4, n3: 7}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n2: 2}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 9, n2: 4, n3: 1}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n2: 4}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n2: 4, n3: 1, n4: 7}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n2: 2}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n4: 1}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n2: 7, n3: 1}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n2: 4, n3: 8}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n2: 1}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 10, n2: 4, n3: 1, n4: 1}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n2: 1}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n2: 4, n3: 1, n4: 8}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n4: 1}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n2: 8, n3: 1}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n2: 4, n3: 9, n4: 1}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n1: 1}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 11, n2: 4, n3: 1, n4: 1}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n1: 1}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n4: 2}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 1, n2: 4, n3: 10, n4: 1}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 12, n2: 4, n3: 1, n4: 2}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n2: 3}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n4: 1}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n1: 1}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n3: 3}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 13, n2: 4, n3: 1, n4: 2}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n2: 9, n3: 1, n4: 1}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 1, n2: 4, n3: 1, n4: 9}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 1, n2: 4, n3: 11, n4: 1}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n1: 2}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n4: 1}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n3: 4}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n4: 2}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 2, n2: 10, n3: 1, n4: 1}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 1, n2: 4, n3: 1, n4: 10}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 14, n2: 4, n3: 4, n4: 2}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 1, n2: 4, n3: 12, n4: 2}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n4: 2}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n4: 2}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n3: 2}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 2, n2: 11, n3: 1, n4: 2}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n2: 3}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 1, n2: 4, n3: 1, n4: 11}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 15, n2: 4, n3: 4, n4: 2}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 1, n2: 4, n3: 13, n4: 2}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n1: 2}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n1: 1}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n3: 3}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n1: 2}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 2, n2: 4, n3: 1, n4: 12}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 2, n2: 12, n3: 1, n4: 2}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 16, n2: 4, n3: 4, n4: 2}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 2, n2: 4, n3: 14, n4: 2}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n1: 3}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n4: 3}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n2: 3}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n3: 2}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 17, n2: 4, n3: 4, n4: 2}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 2, n2: 4, n3: 15, n4: 3}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 2, n2: 4, n3: 1, n4: 13}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 2, n2: 13, n3: 2, n4: 2}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n4: 4}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n3: 2}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n3: 3}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 18, n2: 4, n3: 4, n4: 4}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n2: 3}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 2, n2: 4, n3: 16, n4: 3}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 2, n2: 4, n3: 3, n4: 14}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 2, n2: 14, n3: 2, n4: 2}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n4: 3}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n3: 4}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 19, n2: 4, n3: 4, n4: 4}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 2, n2: 4, n3: 17, n4: 3}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n3: 2}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n3: 4}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 2, n2: 4, n3: 3, n4: 15}
+[n1] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n1: 4}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n1: 3}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 2, n2: 15, n3: 4, n4: 2}
+[n1] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 20, n2: 4, n3: 4, n4: 4}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 3, n2: 4, n3: 18, n4: 3}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n3: 4}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n3: 3}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 2, n2: 4, n3: 4, n4: 16}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 2, n2: 16, n3: 4, n4: 2}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n3: 5}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n4: 3}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v2", from=:n2, vector_clock=%{n4: 3}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n1: 4}
+[n1] [PUT] Write responses for key="k": count=1/4
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 2, n2: 4, n3: 4, n4: 17}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n2 with vector_clock=%{n1: 2, n2: 17, n3: 4, n4: 3}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 4, n2: 4, n3: 19, n4: 3}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 4, n3: 1, n4: 6}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n1: 4}
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n1: 3}
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 5}
+[n1] [PUT] Write responses for key="k": count=2/4
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 4, n2: 4, n3: 4, n4: 18}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 3, n2: 18, n3: 4, n4: 3}
+[n3] [PUT] Write responses for key="k": count=1/4
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 5, n3: 1}
+[n3] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n4: 4}
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n4: 4}
+[n1] [PUT] Write responses for key="k": count=3/4
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v4", from=:n4, vector_clock=%{n4: 4}
+[n3] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 4, n2: 4, n3: 20, n4: 4}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 4, n2: 4, n3: 4, n4: 19}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 6, n3: 1}
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n4 with vector_clock=%{n1: 3, n2: 19, n3: 4, n4: 4}
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 7, n2: 2, n3: 1}
+[n1] [PUT] Write responses for key="k": count=4/4
+[n4] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v1", from=:n1, vector_clock=%{n1: 3}
+[n3] [PUT] Write responses for key="k": count=2/4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[n2] [REPLICA PUT] Received ReplicaPutRequest for key="k", value="v3", from=:n3, vector_clock=%{n1: 4}
+[n4] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n1 with vector_clock=%{n1: 4, n2: 4, n3: 4, n4: 20}
+[preference_list] Found start_idx=16
+[n2] [REPLICA PUT] Updated kv_store for key="k". Sending ReplicaPutResponse to :n3 with vector_clock=%{n1: 4, n2: 20, n3: 4, n4: 4}
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n1] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n1] [PUT] State cleaned up for key="k" after write quorum.
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 7, n3: 1}
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 4, n3: 8}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 8, n3: 1}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 4, n3: 9, n4: 1}
+[n4] [PUT] Write responses for key="k": count=1/4
+[n3] [PUT] Write responses for key="k": count=3/4
+[n2] [PUT] Write responses for key="k": count=1/4
+[n1] [PUT] Write responses for key="k": count=1/4
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 4, n4: 5}
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 11, n3: 1, n4: 2}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 1, n3: 6}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 1, n2: 4, n3: 1, n4: 10}
+[n4] [PUT] Write responses for key="k": count=2/4
+[n3] [PUT] Write responses for key="k": count=4/4
+[n2] [PUT] Write responses for key="k": count=2/4
+[n1] [PUT] Write responses for key="k": count=2/4
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 4, n3: 7}
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 6, n2: 1, n3: 1}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 9, n3: 1, n4: 1}
+[n4] [PUT] Write responses for key="k": count=3/4
+[preference_list] Found start_idx=16
+[n2] [PUT] Write responses for key="k": count=3/4
+[n1] [PUT] Write responses for key="k": count=3/4
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 8, n2: 4, n3: 1}
+[preference_list] Considering node=:n1 at idx=16
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 4, n3: 1, n4: 8}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 10, n2: 4, n3: 1, n4: 1}
+[n4] [PUT] Write responses for key="k": count=4/4
+[preference_list] Considering node=:n3 at idx=17
+[n2] [PUT] Write responses for key="k": count=4/4
+[n1] [PUT] Write responses for key="k": count=4/4
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Found start_idx=16
+[preference_list] Found start_idx=16
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n4 at idx=12
+[n3] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=13
+[n3] [PUT] State cleaned up for key="k" after write quorum.
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n3 at idx=14
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 12, n2: 4, n3: 1, n4: 2}
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n4 at idx=15
+[n3] [PUT] Write responses for key="k": count=1/4
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n2: 4, n3: 1, n4: 7}
+[n4] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n2] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n1] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n3] [PUT] Write responses for key="k": count=2/4
+[n4] [PUT] State cleaned up for key="k" after write quorum.
+[n2] [PUT] State cleaned up for key="k" after write quorum.
+[n1] [PUT] State cleaned up for key="k" after write quorum.
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 13, n3: 2, n4: 2}
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 14, n4: 2}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 11, n2: 4, n3: 1, n4: 1}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 14, n3: 2, n4: 2}
+[n3] [PUT] Write responses for key="k": count=3/4
+[n4] [PUT] Write responses for key="k": count=1/4
+[n2] [PUT] Write responses for key="k": count=1/4
+[n1] [PUT] Write responses for key="k": count=1/4
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 1, n2: 4, n3: 1, n4: 11}
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 10, n3: 1, n4: 1}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 1, n2: 4, n3: 1, n4: 9}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 1, n4: 13}
+[n3] [PUT] Write responses for key="k": count=4/4
+[n4] [PUT] Write responses for key="k": count=2/4
+[n2] [PUT] Write responses for key="k": count=2/4
+[n1] [PUT] Write responses for key="k": count=2/4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 9, n2: 4, n3: 1}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 12, n3: 1, n4: 2}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 13, n2: 4, n3: 1, n4: 2}
+[preference_list] Found start_idx=16
+[n4] [PUT] Write responses for key="k": count=3/4
+[n2] [PUT] Write responses for key="k": count=3/4
+[n1] [PUT] Write responses for key="k": count=3/4
+[preference_list] Considering node=:n1 at idx=16
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 1, n4: 12}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 1, n2: 4, n3: 10, n4: 1}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 1, n2: 4, n3: 13, n4: 2}
+[preference_list] Considering node=:n3 at idx=17
+[n4] [PUT] Write responses for key="k": count=4/4
+[n2] [PUT] Write responses for key="k": count=4/4
+[n1] [PUT] Write responses for key="k": count=4/4
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Found start_idx=16
+[preference_list] Found start_idx=16
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n4 at idx=12
+[n3] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=13
+[n3] [PUT] State cleaned up for key="k" after write quorum.
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n3 at idx=14
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 1, n2: 4, n3: 12, n4: 2}
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n4 at idx=15
+[n3] [PUT] Write responses for key="k": count=1/4
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 15, n2: 4, n3: 4, n4: 2}
+[n4] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n1] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n2] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n3] [PUT] Write responses for key="k": count=2/4
+[n4] [PUT] State cleaned up for key="k" after write quorum.
+[n1] [PUT] State cleaned up for key="k" after write quorum.
+[n2] [PUT] State cleaned up for key="k" after write quorum.
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 4, n2: 20, n3: 4, n4: 4}
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 15, n3: 4, n4: 2}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 4, n2: 4, n3: 4, n4: 20}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 16, n3: 4, n4: 2}
+[n3] [PUT] Write responses for key="k": count=3/4
+[n4] [PUT] Write responses for key="k": count=1/4
+[n1] [PUT] Write responses for key="k": count=1/4
+[n2] [PUT] Write responses for key="k": count=1/4
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 3, n4: 15}
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 14, n2: 4, n3: 4, n4: 2}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 17, n2: 4, n3: 4, n4: 2}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 1, n2: 4, n3: 11, n4: 1}
+[n3] [PUT] Write responses for key="k": count=4/4
+[n4] [PUT] Write responses for key="k": count=2/4
+[n1] [PUT] Write responses for key="k": count=2/4
+[n2] [PUT] Write responses for key="k": count=2/4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 4, n4: 16}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 3, n2: 4, n3: 18, n4: 3}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 16, n2: 4, n3: 4, n4: 2}
+[preference_list] Found start_idx=16
+[n4] [PUT] Write responses for key="k": count=3/4
+[n1] [PUT] Write responses for key="k": count=3/4
+[n2] [PUT] Write responses for key="k": count=3/4
+[preference_list] Considering node=:n1 at idx=16
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 17, n4: 3}
+[n1] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 3, n2: 18, n3: 4, n4: 3}
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 3, n4: 14}
+[preference_list] Considering node=:n3 at idx=17
+[n4] [PUT] Write responses for key="k": count=4/4
+[n1] [PUT] Write responses for key="k": count=4/4
+[n2] [PUT] Write responses for key="k": count=4/4
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Found start_idx=16
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n4 at idx=12
+[n3] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=13
+[n3] [PUT] State cleaned up for key="k" after write quorum.
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n3 at idx=14
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 16, n4: 3}
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n4 at idx=15
+[n3] [PUT] Write responses for key="k": count=1/4
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 20, n2: 4, n3: 4, n4: 4}
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n4] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n1] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n3] [PUT] Write responses for key="k": count=2/4
+[n2] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n4] [PUT] State cleaned up for key="k" after write quorum.
+[n1] [PUT] State cleaned up for key="k" after write quorum.
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 4, n2: 4, n3: 4, n4: 18}
+[n2] [PUT] State cleaned up for key="k" after write quorum.
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 4, n2: 4, n3: 20, n4: 4}
+[n3] [PUT] Write responses for key="k": count=3/4
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 19, n2: 4, n3: 4, n4: 4}
+[n4] [PUT] Write responses for key="k": count=1/4
+[n3] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 4, n2: 4, n3: 19, n4: 3}
+[n2] [PUT] Write responses for key="k": count=1/4
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 3, n2: 19, n3: 4, n4: 4}
+[n3] [PUT] Write responses for key="k": count=4/4
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 4, n4: 17}
+[n4] [PUT] Write responses for key="k": count=2/4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[n2] [PUT] Write responses for key="k": count=2/4
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 18, n2: 4, n3: 4, n4: 4}
+[preference_list] Found start_idx=16
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 17, n3: 4, n4: 3}
+[n4] [PUT] Write responses for key="k": count=3/4
+[preference_list] Considering node=:n1 at idx=16
+[n2] [PUT] Write responses for key="k": count=3/4
+[n4] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 4, n2: 4, n3: 4, n4: 19}
+[preference_list] Considering node=:n3 at idx=17
+[n2] [PUT] Received ReplicaPutResponse for key="k", vector_clock=%{n1: 2, n2: 4, n3: 15, n4: 3}
+[n4] [PUT] Write responses for key="k": count=4/4
+[preference_list] Considering node=:n4 at idx=18
+[n2] [PUT] Write responses for key="k": count=4/4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n4 at idx=12
+[n3] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=13
+[n3] [PUT] State cleaned up for key="k" after write quorum.
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n4] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n2] [PUT] Performing write repair for key="k" to nodes: [:n1, :n3, :n4, :n2]
+[n4] [PUT] State cleaned up for key="k" after write quorum.
+[n2] [PUT] State cleaned up for key="k" after write quorum.
+[Client] Sending GET request to coordinator: :n1
+
+15:33:48.290 [debug] Spawned :getter_n1 with main process: #PID<0.282.0> proxy: #PID<0.283.0>
+[Client] Sending GET request to coordinator: :n2
+
+15:33:48.290 [debug] Spawned :getter_n2 with main process: #PID<0.285.0> proxy: #PID<0.286.0>
+
+15:33:48.290 [debug] Spawned :getter_n3 with main process: #PID<0.288.0> proxy: #PID<0.289.0>
+[Client] Sending GET request to coordinator: :n3
+[Client] Sending GET request to coordinator: :n4
+
+15:33:48.290 [debug] Spawned :getter_n4 with main process: #PID<0.291.0> proxy: #PID<0.292.0>
+[n3] [GET] Received ClientGetRequest for key="k", client=#PID<0.288.0>
+[n1] [GET] Received ClientGetRequest for key="k", client=#PID<0.282.0>
+[n4] [GET] Received ClientGetRequest for key="k", client=#PID<0.291.0>
+[n2] [GET] Received ClientGetRequest for key="k", client=#PID<0.285.0>
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Found start_idx=16
+[preference_list] Found start_idx=16
+[preference_list] Found start_idx=16
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n2 at idx=13
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n3 at idx=14
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Considering node=:n4 at idx=15
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n3] [GET] Preference list for key="k": [:n1, :n3, :n4, :n2]
+[preference_list] Selected nodes: [:n1, :n3, :n4, :n2]
+[n1] [GET] Preference list for key="k": [:n1, :n3, :n4, :n2]
+[n4] [GET] Preference list for key="k": [:n1, :n3, :n4, :n2]
+[n3] [GET] Sending ReplicaGetRequest to node :n1
+[n2] [GET] Preference list for key="k": [:n1, :n3, :n4, :n2]
+[n1] [GET] Sending ReplicaGetRequest to node :n1
+[n4] [GET] Sending ReplicaGetRequest to node :n1
+[n2] [GET] Sending ReplicaGetRequest to node :n1
+[n1] [GET] Sending ReplicaGetRequest to node :n3
+[n3] [GET] Sending ReplicaGetRequest to node :n3
+[n4] [GET] Sending ReplicaGetRequest to node :n3
+[n2] [GET] Sending ReplicaGetRequest to node :n3
+[n1] [GET] Sending ReplicaGetRequest to node :n4
+[n3] [GET] Sending ReplicaGetRequest to node :n4
+[n2] [GET] Sending ReplicaGetRequest to node :n4
+[n4] [GET] Sending ReplicaGetRequest to node :n4
+[n1] [GET] Sending ReplicaGetRequest to node :n2
+[n3] [GET] Sending ReplicaGetRequest to node :n2
+[n2] [GET] Sending ReplicaGetRequest to node :n2
+[n1] [GET] State updated for key="k"; waiting for replica responses.
+[n4] [GET] Sending ReplicaGetRequest to node :n2
+[n3] [GET] State updated for key="k"; waiting for replica responses.
+[n2] [GET] State updated for key="k"; waiting for replica responses.
+[n4] [GET] State updated for key="k"; waiting for replica responses.
+[DEBUG] client_map after GET request: %{{"k", :get} => #PID<0.282.0>}
+[DEBUG] client_map after GET request: %{{"k", :get} => #PID<0.288.0>}
+[DEBUG] client_map after GET request: %{{"k", :get} => #PID<0.291.0>}
+[DEBUG] client_map after GET request: %{{"k", :get} => #PID<0.285.0>}
+[n1] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n1
+[n4] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n2
+[n3] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n1
+[n1] [REPLICA GET] Sending ReplicaGetResponse to :n1 with values=["v3"] and vector_clocks=[%{n1: 20, n2: 4, n3: 4, n4: 4}]
+[n4] [REPLICA GET] Sending ReplicaGetResponse to :n2 with values=["v1"] and vector_clocks=[%{n1: 4, n2: 4, n3: 4, n4: 20}]
+[n2] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n1
+[n3] [REPLICA GET] Sending ReplicaGetResponse to :n1 with values=["v4"] and vector_clocks=[%{n1: 4, n2: 4, n3: 20, n4: 4}]
+[n1] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n4
+[n4] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n4
+[n2] [REPLICA GET] Sending ReplicaGetResponse to :n1 with values=["v3"] and vector_clocks=[%{n1: 4, n2: 20, n3: 4, n4: 4}]
+[n1] [REPLICA GET] Sending ReplicaGetResponse to :n4 with values=["v3"] and vector_clocks=[%{n1: 20, n2: 4, n3: 4, n4: 4}]
+[n3] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n3
+[n4] [REPLICA GET] Sending ReplicaGetResponse to :n4 with values=["v1"] and vector_clocks=[%{n1: 4, n2: 4, n3: 4, n4: 20}]
+[n2] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n2
+[n1] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n3
+[n3] [REPLICA GET] Sending ReplicaGetResponse to :n3 with values=["v4"] and vector_clocks=[%{n1: 4, n2: 4, n3: 20, n4: 4}]
+[n4] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n1
+[n2] [REPLICA GET] Sending ReplicaGetResponse to :n2 with values=["v3"] and vector_clocks=[%{n1: 4, n2: 20, n3: 4, n4: 4}]
+[n1] [REPLICA GET] Sending ReplicaGetResponse to :n3 with values=["v3"] and vector_clocks=[%{n1: 20, n2: 4, n3: 4, n4: 4}]
+[n4] [REPLICA GET] Sending ReplicaGetResponse to :n1 with values=["v1"] and vector_clocks=[%{n1: 4, n2: 4, n3: 4, n4: 20}]
+[n3] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n4
+[n1] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n2
+[n2] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n4
+[n3] [REPLICA GET] Sending ReplicaGetResponse to :n4 with values=["v4"] and vector_clocks=[%{n1: 4, n2: 4, n3: 20, n4: 4}]
+[n1] [REPLICA GET] Sending ReplicaGetResponse to :n2 with values=["v3"] and vector_clocks=[%{n1: 20, n2: 4, n3: 4, n4: 4}]
+[n4] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n3
+[n2] [REPLICA GET] Sending ReplicaGetResponse to :n4 with values=["v3"] and vector_clocks=[%{n1: 4, n2: 20, n3: 4, n4: 4}]
+[n3] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n2
+[n4] [REPLICA GET] Sending ReplicaGetResponse to :n3 with values=["v1"] and vector_clocks=[%{n1: 4, n2: 4, n3: 4, n4: 20}]
+[n1] [GET] Received ReplicaGetResponse for key="k" from node=:n1 with values=["v3"] and vector_clocks=[%{n1: 20, n2: 4, n3: 4, n4: 4}]
+[n2] [REPLICA GET] Received ReplicaGetRequest for key="k" from :n3
+[n3] [REPLICA GET] Sending ReplicaGetResponse to :n2 with values=["v4"] and vector_clocks=[%{n1: 4, n2: 4, n3: 20, n4: 4}]
+[n1] [GET] Read responses for key="k": count=1/1
+[n2] [REPLICA GET] Sending ReplicaGetResponse to :n3 with values=["v3"] and vector_clocks=[%{n1: 4, n2: 20, n3: 4, n4: 4}]
+[n1] [GET] Read quorum achieved for key="k". Sending ClientGetResponse to client #PID<0.282.0> with merged values=["v3"]
+[n2] [GET] Received ReplicaGetResponse for key="k" from node=:n4 with values=["v1"] and vector_clocks=[%{n1: 4, n2: 4, n3: 4, n4: 20}]
+[n2] [GET] Read responses for key="k": count=1/1
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[n2] [GET] Read quorum achieved for key="k". Sending ClientGetResponse to client #PID<0.285.0> with merged values=["v1"]
+[preference_list] Found start_idx=16
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n2 at idx=22
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n2 at idx=22
+[n4] [GET] Received ReplicaGetResponse for key="k" from node=:n3 with values=["v4"] and vector_clocks=[%{n1: 4, n2: 4, n3: 20, n4: 4}]
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n4 at idx=23
+[n3] [GET] Received ReplicaGetResponse for key="k" from node=:n3 with values=["v4"] and vector_clocks=[%{n1: 4, n2: 4, n3: 20, n4: 4}]
+[n4] [GET] Read responses for key="k": count=1/1
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=24
+[n3] [GET] Read responses for key="k": count=1/1
+[n4] [GET] Read quorum achieved for key="k". Sending ClientGetResponse to client #PID<0.291.0> with merged values=["v4"]
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n3 at idx=25
+[n3] [GET] Read quorum achieved for key="k". Sending ClientGetResponse to client #PID<0.288.0> with merged values=["v4"]
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] key="k", key_hash=58950432432975814727330150495812516852205624354772471794033072556055009430906, n=4
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Found start_idx=16
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n1 at idx=16
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=17
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n4 at idx=18
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n1 at idx=19
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n3 at idx=20
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n1 at idx=21
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=22
+[Client] Received ClientGetResponse: %Messages.ClientGetResponse{key: "k", values: [%{value: "v4", vector_clock: %{n1: 4, n2: 4, n3: 20, n4: 4}}]}
+[Client] Received ClientGetResponse: %Messages.ClientGetResponse{key: "k", values: [%{value: "v1", vector_clock: %{n1: 4, n2: 4, n3: 4, n4: 20}}]}
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=22
+[Client] Received ClientGetResponse: %Messages.ClientGetResponse{key: "k", values: [%{value: "v4", vector_clock: %{n1: 4, n2: 4, n3: 20, n4: 4}}]}
+[preference_list] Considering node=:n2 at idx=36
+[Client] Received ClientGetResponse: %Messages.ClientGetResponse{key: "k", values: [%{value: "v3", vector_clock: %{n1: 20, n2: 4, n3: 4, n4: 4}}]}
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n4 at idx=23
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n3 at idx=24
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n3 at idx=25
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=26
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n4 at idx=27
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n3 at idx=28
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n1 at idx=1
+[preference_list] Considering node=:n4 at idx=29
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n2 at idx=2
+[preference_list] Considering node=:n3 at idx=30
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n3 at idx=3
+[preference_list] Considering node=:n1 at idx=31
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n2 at idx=4
+[preference_list] Considering node=:n4 at idx=32
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n3 at idx=5
+[preference_list] Considering node=:n2 at idx=33
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n1 at idx=6
+[preference_list] Considering node=:n4 at idx=34
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n1 at idx=7
+[preference_list] Considering node=:n2 at idx=35
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n2 at idx=8
+[preference_list] Considering node=:n2 at idx=36
+[preference_list] Considering node=:n1 at idx=10
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n2 at idx=9
+[preference_list] Considering node=:n3 at idx=37
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n1 at idx=10
+Stale reads: 2/4 (50.0%)
+[preference_list] Considering node=:n1 at idx=38
+[preference_list] Considering node=:n4 at idx=12
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n2 at idx=11
+[preference_list] Considering node=:n4 at idx=39
+[preference_list] Considering node=:n1 at idx=0
+[preference_list] Considering node=:n2 at idx=13
+.
+Finished in 10.0 seconds (0.00s async, 10.0s sync)
+1 test, 0 failures
